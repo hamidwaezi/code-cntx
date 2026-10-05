@@ -56,7 +56,24 @@ DeveloperRequest
 ```
 
 The local coding model depends only on a provider-neutral `LocalInferenceClient`.
-Concrete inference providers such as Ollama must stay behind that interface.
+Concrete inference providers such as Ollama or remote free-tier APIs must stay behind that interface.
+
+## Inference routing
+
+```text
+LocalCodingModel
+    -> InferenceClient
+    -> RoutedInferenceClient
+        -> provider 1
+        -> provider 2
+        -> Ollama fallback
+```
+
+The initial router is ordered failover only.
+
+Do not add scoring, adaptive routing, benchmarking-based selection, or provider-specific policy to the domain until measurements justify it.
+
+Remote/free APIs are optional capacity. The system must remain functional with only the local provider configured.
 
 ## Current retrieval boundary
 
