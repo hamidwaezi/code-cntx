@@ -44,6 +44,7 @@ Implemented:
 - provider-neutral local coding model for planning and analysis
 - ordered multi-provider inference router with failover
 - Ollama inference provider
+- generic OpenAI-compatible remote inference provider
 - GitHub Actions test workflow
 
 The Serena adapter starts Serena against the target repository and uses semantic tools such as `find_symbol` and `find_referencing_symbols`.
@@ -52,7 +53,7 @@ The first test repository will be `ig.com`.
 
 Not implemented yet:
 
-- optional remote/free inference providers
+- provider-specific presets/config loading for remote services
 - cloud reviewer
 - context-size controls
 - token/cost metrics
