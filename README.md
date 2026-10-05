@@ -11,7 +11,7 @@ code-cntx ---> target repository
 target repository -X-> code-cntx
 ```
 
-The initial architecture separates:
+The architecture separates:
 
 - repository evidence
 - local model analysis
@@ -23,8 +23,8 @@ Evidence is treated as source material. Model analysis is treated as a proposal.
 
 ```text
 Developer request
-    -> local planner
-    -> repository retrieval
+    -> local task planner
+    -> Serena retrieval
     -> repository evidence
     -> local analysis
     -> context package
@@ -32,10 +32,25 @@ Developer request
     -> final result
 ```
 
+## Current state
+
+Implemented:
+
+- provider-neutral domain contracts
+- async orchestration pipeline
+- task plan and retrieval queries
+- fake planner/retriever/local model for deterministic tests
+- Serena MCP retrieval adapter
+- GitHub Actions test workflow
+
+The Serena adapter starts Serena against the target repository and uses semantic tools such as `find_symbol` and `find_referencing_symbols`.
+
 The first test repository will be `ig.com`.
 
-## Current phase
+Not implemented yet:
 
-Only package boundaries and architecture contracts are being established.
-
-No Serena, Ollama, OpenAI, Anthropic, Gemini, cache, vector database, or agent framework integration is included yet.
+- real local LLM planner/analyser
+- cloud reviewer
+- context-size controls
+- token/cost metrics
+- caching or smart routing
