@@ -41,6 +41,7 @@ Implemented:
 - task plan and retrieval queries
 - fake planner/retriever/local model for deterministic tests
 - Serena MCP retrieval adapter
+- provider-neutral local coding model for planning and analysis
 - GitHub Actions test workflow
 
 The Serena adapter starts Serena against the target repository and uses semantic tools such as `find_symbol` and `find_referencing_symbols`.
@@ -49,7 +50,7 @@ The first test repository will be `ig.com`.
 
 Not implemented yet:
 
-- real local LLM planner/analyser
+- concrete local inference adapter (for example Ollama)
 - cloud reviewer
 - context-size controls
 - token/cost metrics
