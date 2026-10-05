@@ -12,6 +12,19 @@ class DeveloperRequest:
 
 
 @dataclass(frozen=True, slots=True)
+class RetrievalQuery:
+    symbol: str
+    relative_path: str | None = None
+    include_references: bool = False
+
+
+@dataclass(frozen=True, slots=True)
+class TaskPlan:
+    summary: str
+    retrieval_queries: tuple[RetrievalQuery, ...]
+
+
+@dataclass(frozen=True, slots=True)
 class Evidence:
     source: str
     content: str
@@ -36,13 +49,22 @@ class ContextPackage:
     local_proposal: LocalProposal
 
 
+class TaskPlanner(Protocol):
+    async def plan(self, request: DeveloperRequest) -> TaskPlan:
+        ...
+
+
 class CodeRetriever(Protocol):
-    def retrieve(self, request: DeveloperRequest) -> Sequence[Evidence]:
+    async def retrieve(
+        self,
+        request: DeveloperRequest,
+        plan: TaskPlan,
+    ) -> Sequence[Evidence]:
         ...
 
 
 class LocalModel(Protocol):
-    def analyse(
+    async def analyse(
         self,
         request: DeveloperRequest,
         evidence: Sequence[Evidence],
@@ -51,5 +73,5 @@ class LocalModel(Protocol):
 
 
 class CloudReviewer(Protocol):
-    def review(self, context: ContextPackage) -> str:
+    async def review(self, context: ContextPackage) -> str:
         ...
