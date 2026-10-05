@@ -29,16 +29,33 @@ Application repositories must not import, configure, or otherwise depend on code
 3. Local model output is a proposal, never authoritative evidence.
 4. Provider-specific integrations must stay behind interfaces.
 5. Domain contracts must not depend on Serena, Ollama, OpenAI, Anthropic, Gemini, or another concrete provider.
-6. Keep the MVP small. Do not introduce custom parsers, vector databases, inference engines, MCP implementations, or multi-agent frameworks unless justified by measured need.
+6. External I/O boundaries are asynchronous.
+7. Serena-specific MCP tool names and argument formats stay inside the Serena retrieval adapter.
+8. Serena receives retrieval intent from a provider-neutral `TaskPlan`; the domain does not know Serena tool names.
+9. Keep the MVP small. Do not introduce custom parsers, vector databases, inference engines, MCP implementations, or multi-agent frameworks unless justified by measured need.
 
 ## Initial layers
 
 - `domain`: provider-neutral data structures and interfaces.
-- `orchestration`: coordinates the workflow.
-- `retrieval`: repository evidence adapters.
+- `orchestration`: coordinates planning, retrieval, and analysis.
+- `retrieval`: repository evidence adapters, including Serena.
 - `models`: local and cloud model adapters.
 - `context`: context-package construction.
 - `metrics`: token, size, latency, and quality measurements.
+
+## Current retrieval boundary
+
+```text
+DeveloperRequest
+    -> TaskPlanner
+    -> TaskPlan / RetrievalQuery
+    -> CodeRetriever
+    -> SerenaCodeRetriever
+    -> Serena MCP
+    -> Evidence[]
+```
+
+Serena output is stored as evidence and must not be silently replaced by a model-generated summary.
 
 ## Change discipline
 
