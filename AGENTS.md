@@ -75,6 +75,8 @@ Do not add scoring, adaptive routing, benchmarking-based selection, or provider-
 
 Remote/free APIs are optional capacity. The system must remain functional with only the local provider configured.
 
+Use `OpenAICompatibleProvider` for remote services that expose an OpenAI-style chat-completions endpoint. Provider-specific URLs, model names, keys, and extra headers belong in configuration, not in the core model or router.
+
 ## Current retrieval boundary
 
 ```text
