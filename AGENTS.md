@@ -43,6 +43,21 @@ Application repositories must not import, configure, or otherwise depend on code
 - `context`: context-package construction.
 - `metrics`: token, size, latency, and quality measurements.
 
+## Local model boundary
+
+```text
+DeveloperRequest
+    -> LocalCodingModel.plan()
+    -> TaskPlan
+    -> Serena retrieval
+    -> Evidence[]
+    -> LocalCodingModel.analyse()
+    -> LocalProposal
+```
+
+The local coding model depends only on a provider-neutral `LocalInferenceClient`.
+Concrete inference providers such as Ollama must stay behind that interface.
+
 ## Current retrieval boundary
 
 ```text
