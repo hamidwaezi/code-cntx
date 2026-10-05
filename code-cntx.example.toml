@@ -1,0 +1,15 @@
+# Providers are tried in this order.
+# Keep real API keys in environment variables, never in this file.
+
+[[providers]]
+kind = "openai-compatible"
+name = "free-provider"
+model = "your-model-name"
+base_url = "https://api.example.com/v1"
+api_key_env = "FREE_PROVIDER_API_KEY"
+
+[[providers]]
+kind = "ollama"
+name = "local"
+model = "qwen2.5-coder:7b"
+base_url = "http://127.0.0.1:11434"
