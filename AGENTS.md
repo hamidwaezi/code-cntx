@@ -77,6 +77,8 @@ Remote/free APIs are optional capacity. The system must remain functional with o
 
 Use `OpenAICompatibleProvider` for remote services that expose an OpenAI-style chat-completions endpoint. Provider-specific URLs, model names, keys, and extra headers belong in configuration, not in the core model or router.
 
+Provider configuration is loaded from TOML. Secrets are referenced by environment-variable name and must never be stored directly in repository configuration. Provider order in configuration defines failover priority.
+
 ## Current retrieval boundary
 
 ```text
