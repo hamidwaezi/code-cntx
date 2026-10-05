@@ -42,6 +42,8 @@ Implemented:
 - fake planner/retriever/local model for deterministic tests
 - Serena MCP retrieval adapter
 - provider-neutral local coding model for planning and analysis
+- ordered multi-provider inference router with failover
+- Ollama inference provider
 - GitHub Actions test workflow
 
 The Serena adapter starts Serena against the target repository and uses semantic tools such as `find_symbol` and `find_referencing_symbols`.
@@ -50,7 +52,7 @@ The first test repository will be `ig.com`.
 
 Not implemented yet:
 
-- concrete local inference adapter (for example Ollama)
+- optional remote/free inference providers
 - cloud reviewer
 - context-size controls
 - token/cost metrics
