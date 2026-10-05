@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import json
 from collections.abc import Sequence
-from typing import Protocol
-
 from code_cntx.domain.contracts import (
     DeveloperRequest,
     Evidence,
@@ -11,17 +9,13 @@ from code_cntx.domain.contracts import (
     RetrievalQuery,
     TaskPlan,
 )
-
-
-class LocalInferenceClient(Protocol):
-    async def complete(self, prompt: str) -> str:
-        ...
+from code_cntx.models.inference import InferenceClient
 
 
 class LocalCodingModel:
-    """Uses a local inference backend for planning and repository analysis."""
+    """Uses a lightweight inference backend for planning and repository analysis."""
 
-    def __init__(self, client: LocalInferenceClient) -> None:
+    def __init__(self, client: InferenceClient) -> None:
         self._client = client
 
     async def plan(self, request: DeveloperRequest) -> TaskPlan:
